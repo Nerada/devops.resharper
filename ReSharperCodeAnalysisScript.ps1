@@ -7,7 +7,7 @@ $projectForResharperClt = Get-ChildItem -Path ".\**" -Filter *.csproj -Recurse
 $packageDirectory = ".\packages"
 
 #Preparing inspectCode tool
-& dotnet add $projectForResharperClt package JetBrains.ReSharper.CommandLineTools --version 2020.3.0-eap08 --package-directory $packageDirectory
+& dotnet add $projectForResharperClt package JetBrains.ReSharper.CommandLineTools --package-directory $packageDirectory
 
 #Running code analysis
 $inspectCode = Get-ChildItem -Path ".\**" -Filter *inspectcode.exe -Recurse
