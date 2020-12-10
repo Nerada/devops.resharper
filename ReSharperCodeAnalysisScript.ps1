@@ -17,7 +17,7 @@ $inspectCode = Get-ChildItem -Path ".\**" -Filter *inspectcode.exe -Recurse
 [xml]$xml = gc $outputFile
 if ($xml.Report.Issues.ChildNodes.Count -gt 0)
 {
- write-error ("`nCode analysis failed: `n" + ((gc $outputFile) -join "`n"))
+ write-error ("`nIssues found in Code: `n" + ((gc $outputFile) -join "`n"))
 }
 else
 {
