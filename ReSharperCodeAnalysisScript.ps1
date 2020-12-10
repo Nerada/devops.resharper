@@ -5,7 +5,7 @@ $outputFile = ".\inspect-code-log.xml"
 
 #just a container for Resharper CLT Nuget
 $projectForResharperClt = ".\resharperProject.csproj"
-Set-Content -Path $projectForResharperClt -Value '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net5.0</TargetFramework></PropertyGroup></Project>'
+Set-Content -Path $projectForResharperClt -Value '<Project><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net5.0</TargetFramework></PropertyGroup></Project>'
 $packageDirectory = ".\packages"
 
 echo "Configuration-slnFile:      $slnFile"
