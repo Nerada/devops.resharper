@@ -23,12 +23,23 @@ $inspectCode = Get-ChildItem -Path ".\**" -Filter *inspectcode.exe -Recurse
 & $inspectCode --profile=$settingsFile $slnFile -o="$outputFile" -s="$severity"
 
 #processing result file
-[xml]$xml = gc $outputFile
+[xml]$xml = Get-Content $outputFile
 if ($xml.Report.Issues.ChildNodes.Count -gt 0)
 {
- write-error ("`nIssues found in Code: `n" + ((gc $outputFile) -join "`n"))
+    echo "`nIssues found in Code:"
+
+    foreach ($node in $xml.Report.Issues.ChildNodes.SelectNodes("//*[@Message]")) 
+    {
+        $file = $node.attributes['File'].value
+	    $line = $node.attributes['Line'].value
+	    $message = $node.attributes['Message'].value
+
+	    write-host "##vso[task.LogIssue type=warning;] [$file $line] [$message]"
+    }
+
+	echo "##vso[task.complete result=Failed;]"
 }
 else
 {
- echo "No issues found"
+    echo "`nNo issues found"
 }
