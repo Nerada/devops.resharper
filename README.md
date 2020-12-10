@@ -1,5 +1,5 @@
-# devops_resharperScript
-Script for ReSharper code analysis to use in azure pipeline
+# ReSharper Script
+Script for ReSharper code analysis, used in my Azure pipelines
 
 ```
 - task: PowerShell@2
