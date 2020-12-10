@@ -2,9 +2,18 @@ $slnFile = Get-ChildItem -Path ".\**" -Filter *.sln -Recurse
 $settingsFile = Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
 $severity = "WARNING"
 $outputFile = ".\inspect-code-log.xml"
+
 #just a container for Resharper CLT Nuget
-$projectForResharperClt = Get-ChildItem -Path ".\**" -Filter *.csproj -Recurse
+$projectForResharperClt = ".\resharperProject.csproj"
+Set-Content -Path $projectForResharperClt -Value '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net5.0</TargetFramework></PropertyGroup></Project>'
 $packageDirectory = ".\packages"
+
+echo "Configuration-slnFile:      $slnFile"
+echo "Configuration-settingsFile: $settingsFile"
+echo "Configuration-severity:     $severity`n"
+echo "Configuration-csproj:     $projectForResharperClt"
+echo "Configuration-packageDir: $packageDirectory"
+echo "Configuration-output:     $outputFile"
 
 #Preparing inspectCode tool
 & dotnet add $projectForResharperClt package JetBrains.ReSharper.CommandLineTools --package-directory $packageDirectory
