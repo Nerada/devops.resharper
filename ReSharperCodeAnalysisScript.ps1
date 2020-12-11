@@ -1,3 +1,8 @@
+#  -----------------------------------------------
+#      Author: Ramon Bollen
+#        File: ReSharperCodeAnalysisScript.ps1
+#  Created on: 20201210
+#  -----------------------------------------------
 $slnFile = Get-ChildItem -Path ".\**" -Filter *.sln -Recurse
 $settingsFile = Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
 $severity = "WARNING"
