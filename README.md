@@ -7,5 +7,5 @@ Script for ReSharper code analysis, used in my Azure pipelines
       timeoutInMinutes: 5
       inputs:
         targetType: 'inline'
-        script: 'iex (iwr https://raw.githubusercontent.com/Nerada/devops_resharperScript/master/ReSharperCodeAnalysisScript.ps1)'
+        script: 'iex (iwr https://raw.githubusercontent.com/Nerada/devops_resharper/master/ReSharperCodeAnalysisScript.ps1)'
 ```
