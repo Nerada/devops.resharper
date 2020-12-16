@@ -36,13 +36,13 @@ if ($xml.Report.Issues.ChildNodes.Count -gt 0)
     foreach ($node in $xml.Report.Issues.ChildNodes.SelectNodes("//*[@Message]")) 
     {
         $file = $node.attributes['File'].value
-	    $line = $node.attributes['Line'].value
-	    $message = $node.attributes['Message'].value
+        $line = $node.attributes['Line'].value
+        $message = $node.attributes['Message'].value
 
-	    write-host "##vso[task.LogIssue type=warning;] [$file $line] [$message]"
+        write-host "##vso[task.LogIssue type=warning;] [$file $line] [$message]"
     }
 
-	echo "##vso[task.complete result=Failed;]"
+    echo "##vso[task.complete result=Failed;]"
 }
 else
 {
