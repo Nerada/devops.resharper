@@ -8,7 +8,7 @@ $settingsFile = Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
 $severity = "WARNING"
 $outputFile = ".\inspect-code-log.xml"
 
-#just a container for Resharper CLT Nuget
+#Container project for Resharper CLT Nuget
 $projectForResharperClt = ".\resharperProject.csproj"
 Set-Content -Path $projectForResharperClt -Value '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net5.0</TargetFramework></PropertyGroup></Project>'
 $packageDirectory = ".\packages"
@@ -26,6 +26,9 @@ echo "Configuration-output:     $outputFile"
 #Running code analysis
 $inspectCode = Get-ChildItem -Path ".\**" -Filter *inspectcode.exe -Recurse
 & $inspectCode --profile=$settingsFile $slnFile -o="$outputFile" -s="$severity"
+
+#Remove container project
+Remove-Item $projectForResharperClt
 
 #processing result file
 [xml]$xml = Get-Content $outputFile
