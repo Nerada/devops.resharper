@@ -1,8 +1,32 @@
-#  -----------------------------------------------
+#  -------------------------------------------
 #      Author: Ramon Bollen
 #        File: ReSharperCodeAnalysisScript.ps1
 #  Created on: 20201210
-#  -----------------------------------------------
+#  -------------------------------------------
+
+# --- Helper Functions ---
+function WriteXmlToScreen ([xml]$xml)
+{
+    $StringWriter = New-Object System.IO.StringWriter;
+    $XmlWriter = New-Object System.Xml.XmlTextWriter $StringWriter;
+    $XmlWriter.Formatting = "indented";
+    $xml.WriteTo($XmlWriter);
+    $XmlWriter.Flush();
+    $StringWriter.Flush();
+    Write-Output $StringWriter.ToString();
+}
+
+# --- Header ---
+echo "`n"
+echo "  ---------------------------------------------"
+echo " |     Author: Ramon Bollen                    |"
+echo " |       File: ReSharperCodeAnalysisScript.ps1 |"
+echo " | Created on: 20201210                        |"
+echo " |                                      v1.1.3 |"
+echo "  ---------------------------------------------"
+echo "`n"
+echo "`n"
+# --- Main Script ---
 $slnFile = Get-ChildItem -Path ".\**" -Filter *.sln -Recurse
 $settingsFile = Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
 $severity = "WARNING"
@@ -27,11 +51,15 @@ echo "Configuration-output:     $outputFile"
 $inspectCode = Get-ChildItem -Path ".\**" -Filter *inspectcode.exe -Recurse
 & $inspectCode --profile=$settingsFile $slnFile -o="$outputFile" -s="$severity"
 
-#Remove container project
+#Rmove container project
 Remove-Item $projectForResharperClt
 
 #processing result file
 [xml]$xml = Get-Content $outputFile
+
+echo "`n"
+WriteXmlToScreen $xml
+
 if ($xml.Report.Issues.ChildNodes.Count -gt 0)
 {
     echo "`nIssues found in Code:"
