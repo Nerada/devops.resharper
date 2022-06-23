@@ -28,7 +28,8 @@ echo "`n"
 echo "`n"
 # --- Main Script ---
 $slnFile = Get-ChildItem -Path ".\**" -Filter *.sln -Recurse
-$settingsFile = Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
+wget "https://raw.githubusercontent.com/Nerada/devops.pipelines/master/main.DotSettings" -outfile "main.DotSettings"
+$settingsFile = Get-ChildItem -Path ".\**" -Filter main.DotSettings -Recurse #Get-ChildItem -Path ".\**" -Filter *.sln.DotSettings -Recurse
 $severity = "WARNING"
 $outputFile = ".\inspect-code-log.xml"
 
